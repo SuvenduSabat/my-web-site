@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AC Substation Grounding</title>
+
+    <!-- KaTeX -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css"
+      integrity="sha384-KiWOvVjnN8qwAZbuQyWDIbfCLFhLXNETzBQjA/92pIowpC0d2O3nppDGQVgwd2nB"
+      crossorigin="anonymous"
+    />
+
+    <!-- The loading of KaTeX is deferred to speed up page rendering -->
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+      integrity="sha384-0fdwu/T/EQMsQlrHCCHoH10pkPLlKA1jL5dFyUOvB3lfeT2540/2g6YgSi2BL14p"
+      crossorigin="anonymous"
+    ></script>
+    <script src="./js/script-grounding.js"></script>
+  </head>
+  <body>
+    <!-- Below code is for selecting grid shape and displaying the grid shape image -->
+    <label for="grid-shape">Choose a grid shape :</label>
+    <select name="grid-shape" id="grid-shape">
+      <option value="square-grid-wo-gr" selected>
+        Square grid without ground rods
+      </option>
+      <option value="square-grid-with-gr">Square grid with ground rods</option>
+      <option value="rectangular-grid-with-gr">
+        Rectangular grid with ground rods
+      </option>
+      <option value="L-shaped-grid-with-gr">
+        L-shaped grid with ground rods
+      </option>
+    </select>
+    <button type="submit" onclick="returnGridImage()">submit</button>
+    <br />
+    <!--  this img tag shows grid image conditionally as per selected dropdown menu -->
+    <img src="./img/one.png" alt="grid-shape" id="grid-image" />
+    <!-- This is the div for all data to be input by user -->
+    <form>
+      <h4>Design Data:</h4>
+      <label for="fault-duration">Fault Duraton (t<sub>f</sub>) = </label>
+      <input
+        type="number"
+        id="fault-duration"
+        name="fault-duration"
+        value="0.5"
+      />s
+      <br />
+      <label for="pos-seq-resistance"
+        >Positive sequence equivanent system impedance (Z<sub>1</sub>) [HV Side]
+        =
+      </label>
+      <input
+        type="number"
+        id="pos-seq-resistance"
+        name="pos-seq-resistance"
+        value="4"
+      />
+      <label for="pos-seq-reactance">Ω + j⋅</label>
+      <input
+        type="number"
+        id="pos-seq-reactance"
+        name="pos-seq-reactance"
+        value="10"
+      />
+      Ω
+      <br />
+      <label for="zero-seq-resistance"
+        >Zero sequence equivanent system impedance (Z<sub>0</sub>) [HV Side] =
+      </label>
+      <input
+        type="number"
+        id="zero-seq-resistance"
+        name="zero-seq-resistance"
+        value="10"
+      />
+      <label for="zero-seq-reactance">Ω +j⋅</label>
+      <input
+        type="number"
+        id="zero-seq-reactance"
+        name="zero-seq-reactance"
+        value="40"
+      />Ω
+      <br />
+      <label for="current-division-factor"
+        >Current division factor (S<sub>f</sub>) =
+      </label>
+      <input
+        type="number"
+        id="current-division-factor"
+        name="current-division-factor"
+        value="0.6"
+      />
+      <br />
+      <label for="line-voltage"
+        >Line to line voltage at worst-fault condition =
+      </label>
+      <input
+        type="number"
+        id="line-voltage"
+        name="line-voltage"
+        value="132000"
+      />
+      Volts
+      <br />
+      <label for="soil-resistivity">Soil resistivity (ρ) = </label>
+      <input
+        type="number"
+        name="soil-resistivity"
+        id="soil-resistivity"
+        value="400"
+      />
+      Ω⋅m
+      <br />
+      <label for="crushed-rock-resistivity"
+        >Crushed rock resistivity (ρ<sub>s</sub>) =
+      </label>
+      <input
+        type="number"
+        id="crushed-rock-resistivity"
+        name="crushed-rock-resistivity"
+        value="2500"
+      />Ω⋅m
+      <br />
+      <label for="crushed-rock-thickness"
+        >Thickness of crushed rock surfacing (h<sub>s</sub>) =
+      </label>
+      <input
+        type="number"
+        id="crushed-rock-thickness"
+        name="crushed-rock-thickness"
+        value="0.102"
+      />m
+      <br />
+      <label for="burial-depth">Depth of grid burial (h) = </label>
+      <input type="number" name="burial-depth" id="burial-depth" value="0.5" />m
+      <br />
+      <label for="grounding-area">Available grounding area (A) = </label>
+      <input
+        type="number"
+        name="grounding-area"
+        id="grounding-area"
+        value="4900"
+      />
+      sq. m
+      <br />
+      <label for="transformer-impedance-r"
+        >Transformer impendance (LV Side) =
+      </label>
+      <input
+        type="number"
+        id="transformer-impedance-r"
+        name="transformer-impedance-r"
+        value="0.034"
+      />
+      <label for="transformer-impedance-x">Ω + j⋅</label>
+      <input
+        type="number"
+        id="transformer-impedance-x"
+        name="transformer-impedance-x"
+        value="1.014"
+      />
+      Ω
+      <br />
+      <label for="material-constants">Choose conductor material : </label>
+      <select name="material-constants" id="material-constants">
+        <option value="7">Copper, annealed soft-drawn</option>
+        <option value="7.06">Copper, commercial hard-drawn</option>
+        <option value="10.45">Copper clad steel wire (conductivity 40%)</option>
+        <option value="12.06">Copper clad steel wire (conductivity 30%)</option>
+        <option value="14.64">Copper-clad steel rod</option>
+        <option value="17.26">Aluminum-clad steel wire</option>
+        <option value="18.38">Steel 1020</option>
+        <option value="14.72">Stainless-clad steel rod</option>
+        <option value="28.96">Zinc-coated steel rod</option>
+        <option value="30.05">Stainless steel 304</option>
+      </select>
+    </form>
+    <div>
+      <h4>Touch and Step Criteria</h4>
+      <p>Reflection Factor (K = (ρ-ρ<sub>s</sub>)/(ρ+ρ<sub>s</sub>)) =</p>
+      <p>Reduction Factor (C <sub>s</sub>) =</p>
+      <div id="sss"></div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,10 @@
+selector for GIS
+
+Battery Sizing - Lead Acid
+
+Get data from exide graph
+
+
+data
+
+10 hour

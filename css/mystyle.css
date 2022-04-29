@@ -1,0 +1,22 @@
+body {
+  background-color: rgba(185, 255, 105, 0.3);
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
+  font-size: 10pt;
+}
+/* decrease all number input sizes */
+input[type="number"] {
+  width: 80px;
+  align-self: center;
+}
+input:read-only {
+  background-color: rgba(200, 200, 200, 0.5);
+}
+table,
+th,
+td {
+  border: 1px solid;
+}
+table td:hover {
+  background-color: yellowgreen;
+}
